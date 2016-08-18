@@ -15,9 +15,9 @@ http {
   <% node[:nginx][:log_format].each do |name, format| %>
   log_format <%= name %> <%= format %>;
   <% end %>
-  log_format combined '$proxy_protocol_addr - $remote_user [$time_local] '
-                      '"$request" $status $body_bytes_sent '
-                      '"$http_referer" "$http_user_agent"';
+  log_format specialLog '$remote_addr forwarded for $http_x_real_ip - $remote_user [$time_local]  '
+                        '"$request" $status $body_bytes_sent '
+                        '"$http_referer" "$http_user_agent"';
 
   access_log  <%= node[:nginx][:log_dir] %>/access.log;
 
